@@ -2,7 +2,7 @@ import axios from 'axios';
 import { auth } from '../config/firebase';
 
 const API = axios.create({
-  baseURL: 'http://localhost:5000/api',
+  baseURL: 'https://blog-pro-full-system-backend.onrender.com/api',
 });
 
 // Add auth token to every request
