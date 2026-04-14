@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import api from '../utils/api';
+import API from '../config/api';
 
 function Notifications() {
   const [title, setTitle] = useState('');
@@ -16,7 +16,7 @@ function Notifications() {
 
     try {
       setIsSubmitting(true);
-      await api.post('/notifications/send', {
+      await API.post('/notifications/send', {
         title,
         body,
         data: { custom: true }
