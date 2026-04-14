@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import API from '../config/api';
 import { HiOutlineDocumentText, HiOutlineEye, HiOutlineHeart, HiOutlineChatBubbleLeftRight, HiOutlineUsers } from 'react-icons/hi2';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
@@ -7,19 +7,19 @@ export default function Dashboard() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchStats();
-  }, []);
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async () => {
     try {
       const { data } = await API.get('/stats');
       setStats(data);
-    } catch (err) {
-      console.error('Error fetching stats:', err);
+    } catch (error) {
+      console.error('Error fetching stats:', error);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchStats();
+  }, [fetchStats]);
 
   if (loading) {
     return <div className="page-loader"><div className="loader"></div></div>;

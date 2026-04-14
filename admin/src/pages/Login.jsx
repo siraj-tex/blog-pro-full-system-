@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
+import { useAuth } from '../context/useAuth';
 import toast from 'react-hot-toast';
 
 export default function Login() {
@@ -32,8 +32,8 @@ export default function Login() {
       </div>
       <div className="login-card">
         <div className="login-header">
-          <span className="login-logo">✍️</span>
-          <h1>Blog<span className="accent">Pro</span></h1>
+          <span className="login-logo">🚀</span>
+          <h1>Nova<span className="accent">Byte</span></h1>
           <p>Admin Dashboard</p>
         </div>
         <form onSubmit={handleSubmit}>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -20,12 +20,7 @@ export default function EditPost() {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchPost();
-    fetchCategories();
-  }, [id]);
-
-  const fetchPost = async () => {
+  const fetchPost = useCallback(async () => {
     try {
       // We need to fetch by ID, so let's get all posts and find ours
       const { data } = await API.get('/posts?status=all&limit=100');
@@ -39,20 +34,25 @@ export default function EditPost() {
         setTags(post.tags?.join(', ') || '');
         setStatus(post.status);
       }
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to load post');
     }
     setLoading(false);
-  };
+  }, [id]);
 
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const { data } = await API.get('/categories');
       setCategories(data.categories);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchPost();
+    fetchCategories();
+  }, [fetchPost, fetchCategories]);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -66,7 +66,7 @@ export default function EditPost() {
       const { data } = await API.post('/upload', formData);
       setCoverImage(data.url);
       toast.success('Image uploaded!');
-    } catch (err) {
+    } catch (error) {
       toast.error('Upload failed');
     }
     setUploading(false);
@@ -91,7 +91,7 @@ export default function EditPost() {
       });
       toast.success('Post updated!');
       navigate('/posts');
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to update post');
     }
     setSaving(false);

@@ -1,11 +1,8 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
+import { AuthContext } from './AuthContextObject';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 import API from '../config/api';
-
-const AuthContext = createContext();
-
-export const useAuth = () => useContext(AuthContext);
 
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
@@ -23,8 +20,8 @@ export function AuthProvider({ children }) {
             photoURL: firebaseUser.photoURL,
           });
           setDbUser(data.user);
-        } catch (err) {
-          console.error('Error syncing user:', err);
+        } catch (error) {
+          console.error('Error syncing user:', error);
         }
       } else {
         setUser(null);

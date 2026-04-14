@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import API from '../config/api';
 import toast from 'react-hot-toast';
 import { HiOutlineTrash } from 'react-icons/hi2';
@@ -7,19 +7,19 @@ export default function Comments() {
   const [comments, setComments] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    fetchComments();
-  }, []);
-
-  const fetchComments = async () => {
+  const fetchComments = useCallback(async () => {
     try {
       const { data } = await API.get('/comments');
       setComments(data.comments);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchComments();
+  }, [fetchComments]);
 
   const deleteComment = async (id) => {
     if (!window.confirm('Delete this comment?')) return;
@@ -27,7 +27,7 @@ export default function Comments() {
       await API.delete(`/comments/${id}`);
       setComments(comments.filter((c) => c._id !== id));
       toast.success('Comment deleted');
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to delete');
     }
   };

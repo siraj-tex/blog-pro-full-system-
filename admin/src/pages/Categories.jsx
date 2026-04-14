@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import API from '../config/api';
 import toast from 'react-hot-toast';
 import { HiOutlineTrash, HiOutlinePencilSquare, HiOutlinePlusCircle } from 'react-icons/hi2';
@@ -11,19 +11,19 @@ export default function Categories() {
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const { data } = await API.get('/categories');
       setCategories(data.categories);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -40,7 +40,7 @@ export default function Categories() {
       setName('');
       setDescription('');
       fetchCategories();
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to save category');
     }
   };
@@ -58,7 +58,7 @@ export default function Categories() {
       await API.delete(`/categories/${id}`);
       setCategories(categories.filter((c) => c._id !== id));
       toast.success('Category deleted');
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to delete');
     }
   };

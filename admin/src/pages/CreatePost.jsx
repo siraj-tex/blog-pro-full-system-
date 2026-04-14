@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ReactQuill from 'react-quill-new';
 import 'react-quill-new/dist/quill.snow.css';
@@ -18,18 +18,18 @@ export default function CreatePost() {
   const [saving, setSaving] = useState(false);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchCategories();
-  }, []);
-
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const { data } = await API.get('/categories');
       setCategories(data.categories);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchCategories();
+  }, [fetchCategories]);
 
   const handleImageUpload = async (e) => {
     const file = e.target.files[0];
@@ -43,7 +43,7 @@ export default function CreatePost() {
       const { data } = await API.post('/upload', formData);
       setCoverImage(data.url);
       toast.success('Image uploaded!');
-    } catch (err) {
+    } catch (error) {
       toast.error('Upload failed');
     }
     setUploading(false);
@@ -68,7 +68,7 @@ export default function CreatePost() {
       });
       toast.success('Post created!');
       navigate('/posts');
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to create post');
     }
     setSaving(false);

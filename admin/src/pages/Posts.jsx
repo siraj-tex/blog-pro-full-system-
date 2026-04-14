@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import API from '../config/api';
 import toast from 'react-hot-toast';
@@ -9,19 +9,19 @@ export default function Posts() {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
 
-  useEffect(() => {
-    fetchPosts();
-  }, []);
-
-  const fetchPosts = async () => {
+  const fetchPosts = useCallback(async () => {
     try {
       const { data } = await API.get('/posts?status=all&limit=50');
       setPosts(data.posts);
-    } catch (err) {
-      console.error(err);
+    } catch (error) {
+      console.error(error);
     }
     setLoading(false);
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchPosts();
+  }, [fetchPosts]);
 
   const deletePost = async (id) => {
     if (!window.confirm('Are you sure you want to delete this post?')) return;
@@ -29,7 +29,7 @@ export default function Posts() {
       await API.delete(`/posts/${id}`);
       setPosts(posts.filter((p) => p._id !== id));
       toast.success('Post deleted');
-    } catch (err) {
+    } catch (error) {
       toast.error('Failed to delete');
     }
   };
