@@ -18,13 +18,16 @@ export function AuthProvider({ children }) {
       if (firebaseUser) {
         setUser(firebaseUser);
         try {
+          console.log('Registering for push notifications...');
           const pushToken = await registerForPushNotificationsAsync();
+          console.log('Push Token obtained:', pushToken);
           
           const { data } = await API.post('/auth/register', {
             displayName: firebaseUser.displayName,
             photoURL: firebaseUser.photoURL,
             expoPushToken: pushToken,
           });
+          console.log('User synced with backend, push token stored.');
           setDbUser(data.user);
         } catch (err) {
           console.error('Error syncing user in RN:', err);

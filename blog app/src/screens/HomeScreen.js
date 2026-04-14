@@ -51,7 +51,13 @@ export default function HomeScreen({ navigation }) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Text style={styles.headerTitle}>BlogPro</Text>
+      <View style={styles.header}>
+        <Image 
+          source={require('../../assets/icon.png')} 
+          style={styles.logo} 
+        />
+        <Text style={styles.headerTitle}>NovaByte</Text>
+      </View>
       {loading ? (
         <ActivityIndicator size="large" color="#6366f1" style={{ marginTop: 50 }} />
       ) : (
@@ -70,7 +76,17 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#f8f9fa' },
-  headerTitle: { fontSize: 24, fontWeight: 'bold', padding: 16, color: '#333' },
+  header: { 
+    flexDirection: 'row', 
+    alignItems: 'center', 
+    paddingHorizontal: 16, 
+    paddingVertical: 12,
+    backgroundColor: '#fff',
+    borderBottomWidth: 1,
+    borderBottomColor: '#eee',
+  },
+  logo: { width: 32, height: 32, borderRadius: 8, marginRight: 10 },
+  headerTitle: { fontSize: 20, fontWeight: 'bold', color: '#1a1a2e' },
   list: { padding: 16, paddingBottom: 40 },
   card: { backgroundColor: '#fff', borderRadius: 12, overflow: 'hidden', marginBottom: 20, elevation: 3, shadowColor: '#000', shadowOffset: { width: 0, height: 2 }, shadowOpacity: 0.1, shadowRadius: 8 },
   image: { width: '100%', height: 200, resizeMode: 'cover' },

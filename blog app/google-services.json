@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "385570296445",
+    "project_id": "blog-pro-bbcad",
+    "storage_bucket": "blog-pro-bbcad.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:385570296445:android:99b7ba9fc747e5a1721714",
+        "android_client_info": {
+          "package_name": "com.siraj_tex.blogpro"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "385570296445-4uh2q32ja4r5sdnu8atc2ku9rl41iruf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBQOvHZQyRdtsNMWoT48EsFZxzDxhfTNY8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "385570296445-4uh2q32ja4r5sdnu8atc2ku9rl41iruf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

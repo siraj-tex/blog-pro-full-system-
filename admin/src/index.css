@@ -329,6 +329,13 @@ a {
   gap: 10px;
 }
 
+.logo-img {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
 .logo-icon {
   font-size: 28px;
 }

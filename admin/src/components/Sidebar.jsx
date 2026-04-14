@@ -34,7 +34,7 @@ export default function Sidebar({ isOpen, onClose }) {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="logo">
-            <span className="logo-icon">🚀</span>
+            <img src="/logo.png" alt="NovaByte Logo" className="logo-img" />
             <span className="logo-text">Nova<span className="logo-accent">Byte</span></span>
           </div>
         </div>
