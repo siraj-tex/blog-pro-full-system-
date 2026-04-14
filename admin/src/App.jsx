@@ -10,6 +10,7 @@ import CreatePost from './pages/CreatePost';
 import EditPost from './pages/EditPost';
 import Categories from './pages/Categories';
 import Comments from './pages/Comments';
+import Notifications from './pages/Notifications';
 
 function App() {
   return (
@@ -40,6 +41,7 @@ function App() {
             <Route path="/posts/edit/:id" element={<EditPost />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/comments" element={<Comments />} />
+            <Route path="/notifications" element={<Notifications />} />
           </Route>
         </Routes>
       </BrowserRouter>

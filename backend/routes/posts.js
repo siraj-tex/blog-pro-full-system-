@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../models/Post');
 const { auth, adminOnly } = require('../middleware/auth');
 const slugify = require('slugify');
+const { sendPushNotification } = require('../utils/pushNotifications');
 
 // GET /api/posts - Get all published posts (public)
 router.get('/', async (req, res) => {
@@ -92,6 +93,11 @@ router.post('/', auth, adminOnly, async (req, res) => {
 
     await post.populate('author', 'displayName photoURL');
     await post.populate('category', 'name slug');
+
+    if (post.status === 'published') {
+      // Send notification in the background
+      sendPushNotification('New Blog Post!', post.title, { slug: post.slug });
+    }
 
     res.status(201).json({ post });
   } catch (error) {

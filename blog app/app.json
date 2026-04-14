@@ -1,12 +1,18 @@
 {
   "expo": {
-    "name": "Blog Pro",
-    "slug": "blog-pro",
+    "name": "NovaByte",
+    "slug": "novabyte",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/d9df394a-4bd7-40a5-ab36-2be671241139"
+    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -20,10 +26,16 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true
+      "edgeToEdgeEnabled": true,
+      "package": "com.siraj_tex.blogpro"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "d9df394a-4bd7-40a5-ab36-2be671241139"
+      }
     }
   }
 }

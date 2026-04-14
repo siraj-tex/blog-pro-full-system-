@@ -6,7 +6,8 @@ import {
   HiOutlinePlusCircle, 
   HiOutlineTag, 
   HiOutlineChatBubbleLeftRight,
-  HiOutlineArrowRightOnRectangle 
+  HiOutlineArrowRightOnRectangle,
+  HiOutlineBell
 } from 'react-icons/hi2';
 
 export default function Sidebar({ isOpen, onClose }) {
@@ -24,6 +25,7 @@ export default function Sidebar({ isOpen, onClose }) {
     { to: '/posts/create', icon: <HiOutlinePlusCircle />, label: 'New Post' },
     { to: '/categories', icon: <HiOutlineTag />, label: 'Categories' },
     { to: '/comments', icon: <HiOutlineChatBubbleLeftRight />, label: 'Comments' },
+    { to: '/notifications', icon: <HiOutlineBell />, label: 'Notifications' },
   ];
 
   return (
@@ -32,8 +34,8 @@ export default function Sidebar({ isOpen, onClose }) {
       <aside className={`sidebar ${isOpen ? 'open' : ''}`}>
         <div className="sidebar-header">
           <div className="logo">
-            <span className="logo-icon">✍️</span>
-            <span className="logo-text">Blog<span className="logo-accent">Pro</span></span>
+            <span className="logo-icon">🚀</span>
+            <span className="logo-text">Nova<span className="logo-accent">Byte</span></span>
           </div>
         </div>
 

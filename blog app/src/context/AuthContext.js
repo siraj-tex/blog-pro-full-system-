@@ -2,6 +2,7 @@ import React, { createContext, useContext, useState, useEffect } from 'react';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut } from 'firebase/auth';
 import API from '../config/api';
+import { registerForPushNotificationsAsync } from '../utils/notifications';
 
 const AuthContext = createContext();
 
@@ -17,9 +18,12 @@ export function AuthProvider({ children }) {
       if (firebaseUser) {
         setUser(firebaseUser);
         try {
+          const pushToken = await registerForPushNotificationsAsync();
+          
           const { data } = await API.post('/auth/register', {
             displayName: firebaseUser.displayName,
             photoURL: firebaseUser.photoURL,
+            expoPushToken: pushToken,
           });
           setDbUser(data.user);
         } catch (err) {

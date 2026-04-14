@@ -10,6 +10,7 @@ router.post('/register', auth, async (req, res) => {
     // Update with latest info from request body
     if (req.body.displayName) user.displayName = req.body.displayName;
     if (req.body.photoURL) user.photoURL = req.body.photoURL;
+    if (req.body.expoPushToken) user.expoPushToken = req.body.expoPushToken;
     await user.save();
 
     // Check if this is the first user - make them admin
@@ -37,12 +38,13 @@ router.get('/me', auth, async (req, res) => {
 // PUT /api/auth/profile - Update profile
 router.put('/profile', auth, async (req, res) => {
   try {
-    const { displayName, bio, photoURL } = req.body;
+    const { displayName, bio, photoURL, expoPushToken } = req.body;
     const user = req.user;
 
     if (displayName) user.displayName = displayName;
     if (bio !== undefined) user.bio = bio;
     if (photoURL) user.photoURL = photoURL;
+    if (expoPushToken !== undefined) user.expoPushToken = expoPushToken;
 
     await user.save();
     res.json({ user });
